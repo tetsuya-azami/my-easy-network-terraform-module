@@ -41,7 +41,7 @@ resource "aws_route_table" "public" {
   vpc_id = aws_vpc.main.id
 
   tags = {
-    Name = "${var.project_name}-rtb"
+    Name = "${var.project_name}-public-rtb"
   }
 }
 
@@ -54,5 +54,20 @@ resource "aws_route" "public" {
 resource "aws_route_table_association" "public" {
   for_each       = aws_subnet.public
   route_table_id = aws_route_table.public.id
+  subnet_id      = each.value.id
+}
+
+
+resource "aws_route_table" "private" {
+  vpc_id = aws_vpc.main.id
+
+  tags = {
+    Name = "${var.project_name}-private-rtb"
+  }
+}
+
+resource "aws_route_table_association" "private" {
+  for_each       = aws_subnet.private
+  route_table_id = aws_route_table.private.id
   subnet_id      = each.value.id
 }
