@@ -1,6 +1,6 @@
 output "vpc" {
   value = {
-    vpc_id     = aws_vpc.main.id
+    id         = aws_vpc.main.id
     cidr_block = aws_vpc.main.cidr_block
   }
   description = "vpc object"
